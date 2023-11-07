@@ -15,10 +15,26 @@ public class TaskController {
     private final TaskService taskService;
     @GetMapping
     public List<Task> getAllTasks(){
+        log.info("get all tasks");
         return taskService.getAllTasks();
     }
     @PostMapping
     public Task saveTask(@RequestBody Task task) {
+        log.info("post task " + task.getName());
         return taskService.createTask(task);
+    }
+
+    @PatchMapping(path="/{taskId}")
+    public Task updateTask(
+            @PathVariable(name="taskId") Integer taskId,
+            @RequestBody Task task) {
+        log.info("patching task");
+        return taskService.patchTask(taskId, task);
+    }
+
+    @DeleteMapping(path="/{taskId}")
+    public void deleteTask(@PathVariable Integer taskId) {
+        log.info("deleting task");
+        taskService.deleteTask(taskId);
     }
 }
