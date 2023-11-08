@@ -7,6 +7,7 @@ import ru.test.taskmanager.model.Task;
 import ru.test.taskmanager.model.TaskStatus;
 import ru.test.taskmanager.repository.TaskRepository;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -63,6 +64,12 @@ public class TaskService {
             throw new NoSuchElementException("no such element in repository");
         }
         return taskFromRepo.get();
+    }
+
+    public List<Task> getTodayTasks() {
+        LocalDateTime moment1 = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
+        LocalDateTime moment2 = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59);
+        return taskRepository.findByExecutionTimeBetween(moment1, moment2);
     }
 }
 
