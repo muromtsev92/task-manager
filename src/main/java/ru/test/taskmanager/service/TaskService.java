@@ -7,10 +7,10 @@ import ru.test.taskmanager.model.Task;
 import ru.test.taskmanager.model.TaskStatus;
 import ru.test.taskmanager.repository.TaskRepository;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class TaskService {
 
     public Task patchTask(Integer taskId, Task task) {
         Task updatedTask = taskRepository.findById(taskId)
-                .orElseThrow(()->new NoSuchElementException());
+                .orElseThrow(NoSuchElementException::new);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         if(task.getId() != null) {
@@ -55,6 +55,14 @@ public class TaskService {
 
     public void deleteTask(Integer taskId) {
         taskRepository.deleteById(taskId);
+    }
+
+    public Task getById(Integer taskId) {
+        Optional<Task> taskFromRepo = taskRepository.findById(taskId);
+        if (taskFromRepo.isEmpty()){
+            throw new NoSuchElementException("no such element in repository");
+        }
+        return taskFromRepo.get();
     }
 }
 

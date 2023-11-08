@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.test.taskmanager.model.Task;
 import ru.test.taskmanager.service.TaskService;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/tasks")
@@ -17,6 +18,11 @@ public class TaskController {
     public List<Task> getAllTasks(){
         log.info("get all tasks");
         return taskService.getAllTasks();
+    }
+    @GetMapping(path="/{taskId}")
+    public Task getTaskById(
+            @PathVariable(name="taskId") Integer taskId){
+        return taskService.getById(taskId);
     }
     @PostMapping
     public Task saveTask(@RequestBody Task task) {
