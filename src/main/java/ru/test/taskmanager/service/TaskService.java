@@ -44,8 +44,8 @@ public class TaskService {
         if(task.getDuration() != null) {
             updatedTask.setDuration(task.getDuration());
         }
-        if(task.getStartTime() != null) {
-            updatedTask.setStartTime(task.getStartTime());
+        if(task.getExecutionTime() != null) {
+            updatedTask.setExecutionTime(task.getExecutionTime());
         }
         if(task.getTaskStatus() != null) {
             updatedTask.setTaskStatus(task.getTaskStatus());

@@ -21,7 +21,7 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus taskStatus;
     private Integer duration;
-    private LocalDateTime startTime;
+    private LocalDateTime executionTime;
 
 }
 
