@@ -3,6 +3,7 @@ package ru.test.taskmanager.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.test.taskmanager.dto.TaskStatusDto;
 import ru.test.taskmanager.model.Task;
 import ru.test.taskmanager.model.TaskStatus;
 import ru.test.taskmanager.repository.TaskRepository;
@@ -66,10 +67,37 @@ public class TaskService {
         return taskFromRepo.get();
     }
 
-    public List<Task> getTodayTasks() {
-        LocalDateTime moment1 = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
-        LocalDateTime moment2 = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59);
-        return taskRepository.findByExecutionTimeBetween(moment1, moment2);
+    public List<Task> getTodayTasks(String status) {
+        LocalDateTime from = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
+        LocalDateTime till = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59);
+        return getTaskFromRepositoryByPeriod(from, till, status);
+    }
+
+    public List<Task> getWeekTasks(String status) {
+        LocalDateTime from = LocalDateTime.now();
+        LocalDateTime till = LocalDateTime.now().plusDays(7L);
+        return getTaskFromRepositoryByPeriod(from, till, status);
+    }
+
+    public List<Task> getMonthTasks(String status) {
+        LocalDateTime from = LocalDateTime.now();
+        LocalDateTime till = LocalDateTime.now().plusMonths(1L);
+        return getTaskFromRepositoryByPeriod(from, till, status);
+    }
+
+    List<Task> getTaskFromRepositoryByPeriod(LocalDateTime from, LocalDateTime till, String status) {
+        if(status == null) {
+            return taskRepository.findByExecutionTimeBetween(from, till);
+        }
+        TaskStatus taskStatus = TaskStatus.valueOf(status.toUpperCase());
+        return taskRepository.findByExecutionTimeBetweenAndTaskStatus(from, till, taskStatus);
+    }
+
+
+    public Task updateTaskStatus(TaskStatusDto taskStatusDto) {
+        Task task = taskRepository.findById(taskStatusDto.getId()).orElseThrow(NoSuchElementException::new);
+        task.setTaskStatus(taskStatusDto.getTaskStatus());
+        return taskRepository.save(task);
     }
 }
 
