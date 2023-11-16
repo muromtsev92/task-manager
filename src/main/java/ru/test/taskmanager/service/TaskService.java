@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.test.taskmanager.dto.TaskStatusDto;
+import ru.test.taskmanager.exceptions.NotFoundException;
 import ru.test.taskmanager.model.Task;
 import ru.test.taskmanager.model.TaskStatus;
 import ru.test.taskmanager.repository.TaskRepository;
@@ -31,7 +32,7 @@ public class TaskService {
 
     public Task patchTask(Integer taskId, Task task) {
         Task updatedTask = taskRepository.findById(taskId)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NotFoundException("task id:" + taskId + " was not found in the repository"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         if(task.getId() != null) {
@@ -62,7 +63,7 @@ public class TaskService {
     public Task getById(Integer taskId) {
         Optional<Task> taskFromRepo = taskRepository.findById(taskId);
         if (taskFromRepo.isEmpty()){
-            throw new NoSuchElementException("no such element in repository");
+            throw new NotFoundException("task id:" + taskId + " was not found in the repository");
         }
         return taskFromRepo.get();
     }
@@ -92,7 +93,6 @@ public class TaskService {
         TaskStatus taskStatus = TaskStatus.valueOf(status.toUpperCase());
         return taskRepository.findByExecutionTimeBetweenAndTaskStatus(from, till, taskStatus);
     }
-
 
     public Task updateTaskStatus(TaskStatusDto taskStatusDto) {
         Task task = taskRepository.findById(taskStatusDto.getId()).orElseThrow(NoSuchElementException::new);

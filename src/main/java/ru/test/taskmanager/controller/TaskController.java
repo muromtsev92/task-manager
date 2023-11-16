@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.test.taskmanager.dto.TaskStatusDto;
 import ru.test.taskmanager.model.Task;
-import ru.test.taskmanager.model.TaskStatus;
 import ru.test.taskmanager.service.TaskService;
 import java.util.List;
 
