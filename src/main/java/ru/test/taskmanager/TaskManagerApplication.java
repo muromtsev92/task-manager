@@ -10,3 +10,5 @@ public class TaskManagerApplication {
 	}
 
 }
+
+// протестировать api можно с помощью postman-коллекции, находящейся в папке postman

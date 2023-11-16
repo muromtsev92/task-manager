@@ -10,7 +10,6 @@ import ru.test.taskmanager.model.TaskStatus;
 import ru.test.taskmanager.repository.TaskRepository;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -33,7 +32,6 @@ public class TaskService {
     public Task patchTask(Integer taskId, Task task) {
         Task updatedTask = taskRepository.findById(taskId)
                 .orElseThrow(() -> new NotFoundException("task id:" + taskId + " was not found in the repository"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         if(task.getId() != null) {
             updatedTask.setId(task.getId());

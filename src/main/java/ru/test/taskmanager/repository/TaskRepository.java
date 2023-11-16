@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.test.taskmanager.model.Task;
 import ru.test.taskmanager.model.TaskStatus;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

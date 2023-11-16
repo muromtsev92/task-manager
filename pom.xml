@@ -15,7 +15,7 @@
 
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>max-kanban</name>
+	<name>task-manager</name>
 
 	<description>Demo project for Spring Boot</description>
 
@@ -35,6 +35,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -71,15 +72,6 @@
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
 			<version>3.0.5</version>
 		</dependency>
-
-		<!--		&lt;!&ndash; https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api &ndash;&gt;-->
-		<!--		<dependency>-->
-		<!--			<groupId>jakarta.validation</groupId>-->
-		<!--			<artifactId>jakarta.validation-api</artifactId>-->
-		<!--			<version>3.0.2</version>-->
-		<!--		</dependency>-->
-
-
 
 	</dependencies>
 
