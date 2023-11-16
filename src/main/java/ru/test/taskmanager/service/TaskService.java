@@ -93,7 +93,8 @@ public class TaskService {
     }
 
     public Task updateTaskStatus(TaskStatusDto taskStatusDto) {
-        Task task = taskRepository.findById(taskStatusDto.getId()).orElseThrow(NoSuchElementException::new);
+        Task task = taskRepository.findById(taskStatusDto.getId())
+                .orElseThrow(() -> new NotFoundException("no task for updating with id " + taskStatusDto.getId()));
         task.setTaskStatus(taskStatusDto.getTaskStatus());
         return taskRepository.save(task);
     }
