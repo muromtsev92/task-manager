@@ -2,7 +2,7 @@
 
 REST API для
 - Просмотра списка задач на сегодня/неделю/месяц с фильтрацией по выполнению:
- http://localhost:8080/tasks - список всех задач
+ http://localhost:8080/tasks - список всех задач\n
  http://localhost:8080/tasks/{id} - получение задачи по id
  http://localhost:8080/tasks/today - список задач на сегодня
  http://localhost:8080/tasks/week - список задач на неделю от текущего момента
